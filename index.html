@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HAISEEE-</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: #030102;
+    color: white;
+    font-family: Arial, sans-serif;
+    overflow: hidden;
+}
+
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background: radial-gradient(
+        circle at 50% 50%,
+        rgba(100,15,30,.12),
+        transparent 45%
+    );
+    pointer-events: none;
+}
+
+.container {
+    width: 100%;
+    height: 100vh;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* HEADER */
+
+.header {
+    position: absolute;
+    top: 24%;
+    text-align: center;
+    z-index: 5;
+}
+
+.logo {
+    width: 125px;
+    height: 125px;
+    border-radius: 50%;
+    border: 2px solid #8d2638;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 37px;
+    font-weight: bold;
+    color: #d75b70;
+
+    background: radial-gradient(
+        circle,
+        #17070b,
+        #080205
+    );
+
+    box-shadow:
+        0 0 15px #6b1728,
+        0 0 35px rgba(180,40,60,.25),
+        inset 0 0 25px rgba(180,40,60,.15);
+
+    animation: glow 3s infinite alternate;
+}
+
+.title {
+    margin-top: 14px;
+    font-size: 20px;
+    font-weight: bold;
+    letter-spacing: 5px;
+}
+
+.subtitle {
+    margin-top: 11px;
+    font-size: 11px;
+    letter-spacing: 3px;
+    color: #777;
+}
+
+/* MENU */
+
+.menu {
+    width: 500px;
+    height: 500px;
+    position: relative;
+    margin-top: 410px;
+}
+
+.node {
+    position: absolute;
+
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+
+    border: 1px solid #7d2132;
+
+    background: radial-gradient(
+        circle,
+        #17080d 0%,
+        #0d0407 60%,
+        #040103 100%
+    );
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    text-align: center;
+
+    color: #eee;
+    font-size: 13px;
+    font-weight: bold;
+
+    cursor: pointer;
+
+    transition: .3s;
+
+    box-shadow:
+        0 0 13px rgba(130,25,45,.35),
+        inset 0 0 18px rgba(130,25,45,.1);
+
+    z-index: 3;
+}
+
+.node:hover {
+    transform: scale(1.08);
+
+    border-color: #c43c54;
+
+    box-shadow:
+        0 0 20px #8d2638,
+        0 0 45px rgba(190,45,70,.35);
+}
+
+/* TENGAH */
+
+.main {
+    width: 180px;
+    height: 180px;
+
+    left: 160px;
+    top: 160px;
+
+    border: 2px solid #8d2638;
+
+    color: #d75b70;
+
+    font-size: 19px;
+    letter-spacing: 3px;
+
+    box-shadow:
+        0 0 20px rgba(150,30,50,.35),
+        0 0 50px rgba(120,20,40,.15),
+        inset 0 0 30px rgba(150,30,50,.12);
+}
+
+/* PLAY */
+
+.play {
+    width: 55px;
+    height: 55px;
+
+    border-radius: 50%;
+    border: 2px solid #864052;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    color: #d75b70;
+    font-size: 20px;
+
+    margin: 0 auto 15px;
+}
+
+/* POSISI */
+
+.script {
+    left: 200px;
+    top: 20px;
+}
+
+.tutorial {
+    left: 0;
+    top: 180px;
+}
+
+.tiktok {
+    right: 0;
+    top: 180px;
+}
+
+.youtube {
+    left: 200px;
+    bottom: 20px;
+}
+
+/* GARIS */
+
+.line {
+    position: absolute;
+    background: #49111c;
+    z-index: 1;
+}
+
+.line-horizontal {
+    width: 100%;
+    height: 1px;
+    left: 0;
+    top: 230px;
+}
+
+.line-vertical {
+    width: 1px;
+    height: 100%;
+    left: 250px;
+    top: 0;
+}
+
+/* ANIMASI */
+
+@keyframes glow {
+    from {
+        box-shadow:
+            0 0 12px #641525,
+            0 0 25px rgba(160,30,50,.15);
+    }
+
+    to {
+        box-shadow:
+            0 0 20px #962a40,
+            0 0 45px rgba(190,40,65,.3);
+    }
+}
+
+.node:active {
+    transform: scale(.94);
+}
+
+/* HP */
+
+@media (max-width: 600px) {
+    .header {
+        top: 25%;
+    }
+
+    .menu {
+        transform: scale(.88);
+        margin-top: 400px;
+    }
+}
+
+@media (max-width: 380px) {
+    .menu {
+        transform: scale(.78);
+    }
+
+    .header {
+        top: 23%;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="header">
+
+        <div class="logo">
+            KW
+        </div>
+
+        <div class="title">
+            HAISEEE-
+        </div>
+
+        <div class="subtitle">
+            LOCAL VERSION
+        </div>
+
+    </div>
+
+    <div class="menu">
+
+        <div class="line line-horizontal"></div>
+        <div class="line line-vertical"></div>
+
+        <div class="node script"
+             onclick="openPage('script.html')">
+            SCRIPT V2.4
+        </div>
+
+        <div class="node tutorial"
+             onclick="openPage('tutorial.html')">
+            TUTORIAL
+        </div>
+
+        <div class="node main"
+             onclick="mainButton()">
+
+            <div>
+
+                <div class="play">
+                    ▶
+                </div>
+
+                <div>
+                    ULAR KADUT
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="node tiktok"
+             onclick="openExternal('https://www.tiktok.com/')">
+            TIK TOK
+        </div>
+
+        <div class="node youtube"
+             onclick="openExternal('https://www.youtube.com/')">
+            YOUTUBE
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+
+function openPage(page) {
+    window.location.href = page;
+}
+
+function openExternal(url) {
+    window.open(url, "_blank");
+}
+
+function mainButton() {
+    alert("ULAR KADUT");
+}
+
+</script>
+
+</body>
+                  </html>
