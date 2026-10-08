@@ -1,363 +1,862 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>HAISEEE-</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IKKY MARKET - Digital Storefront</title>
+    <link href="https://cdn.tailwindcss.com" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-<style>
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
+        :root {
+            --primary-glow: #00ffcc;
+            --secondary-glow: #ff3366;
+            --dark-base: #0a0a0a;
+            --dark-surface: #121212;
+            --glass-background: rgba(15, 15, 18, 0.7);
+            --text-primary: #ffffff;
+            --text-secondary: #a0a0b0;
+        }
 
-body {
-    background: #030102;
-    color: white;
-    font-family: Arial, sans-serif;
-    overflow: hidden;
-}
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--dark-base);
+            color: var(--text-primary);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
 
-body::before {
-    content: "";
-    position: fixed;
-    inset: 0;
-    background: radial-gradient(
-        circle at 50% 50%,
-        rgba(100,15,30,.12),
-        transparent 45%
-    );
-    pointer-events: none;
-}
+        /* Navigation */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: linear-gradient(180deg, rgba(10, 10, 12, 0.95) 0%, transparent 50%);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            transition: all 0.3s ease;
+        }
 
-.container {
-    width: 100%;
-    height: 100vh;
-    position: relative;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
+        .nav-brand {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+            padding: 20px 40px;
+            text-decoration: none;
+            color: #fff;
+            font-size: 1.8rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
 
-/* HEADER */
+        .nav-links {
+            display: flex;
+            gap: 40px;
+            list-style: none;
+            justify-content: center;
+        }
 
-.header {
-    position: absolute;
-    top: 24%;
-    text-align: center;
-    z-index: 5;
-}
+        .nav-item {
+            padding: 8px 16px;
+            border-radius: 8px;
+            color: var(--text-secondary);
+            transition: all 0.3s ease;
+        }
 
-.logo {
-    width: 125px;
-    height: 125px;
-    border-radius: 50%;
-    border: 2px solid #8d2638;
+        .nav-item:hover {
+            background: rgba(0, 255, 204, 0.1);
+            color: #fff;
+        }
 
-    display: flex;
-    align-items: center;
-    justify-content: center;
+        .nav-item.active {
+            background: rgba(0, 255, 204, 0.2);
+            color: #00ffcc;
+        }
 
-    font-size: 37px;
-    font-weight: bold;
-    color: #d75b70;
+        .nav-item-content {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-weight: 600;
+        }
 
-    background: radial-gradient(
-        circle,
-        #17070b,
-        #080205
-    );
+        .nav-icon {
+            width: 28px;
+            height: 28px;
+            background: #333;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
 
-    box-shadow:
-        0 0 15px #6b1728,
-        0 0 35px rgba(180,40,60,.25),
-        inset 0 0 25px rgba(180,40,60,.15);
+        .nav-links li:hover .nav-icon {
+            background: var(--primary-glow);
+            color: #000;
+        }
 
-    animation: glow 3s infinite alternate;
-}
+        .nav-links a {
+            text-decoration: none;
+            font-size: 0.95rem;
+            color: var(--text-primary);
+            transition: opacity 0.3s;
+        }
 
-.title {
-    margin-top: 14px;
-    font-size: 20px;
-    font-weight: bold;
-    letter-spacing: 5px;
-}
+        .nav-links a:hover {
+            opacity: 0.8;
+        }
 
-.subtitle {
-    margin-top: 11px;
-    font-size: 11px;
-    letter-spacing: 3px;
-    color: #777;
-}
+        .nav-toggler {
+            display: none;
+            background: none;
+            border: 1px solid rgba(255,255,255,0.2);
+            color: white;
+            padding: 8px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
 
-/* MENU */
+        .nav-toggler.active {
+            background: rgba(0, 255, 204, 0.2);
+            border-color: var(--primary-glow);
+        }
 
-.menu {
-    width: 500px;
-    height: 500px;
-    position: relative;
-    margin-top: 410px;
-}
+        .toggle-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 44px;
+            height: 44px;
+            background: rgba(0, 255, 204, 0.2);
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
 
-.node {
-    position: absolute;
+        .toggle-btn::after {
+            content: '';
+            width: 24px;
+            height: 24px;
+            background: white;
+            border-radius: 50%;
+            transform: translateY(-10px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+        }
 
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
+        /* Hero Section */
+        .hero {
+            position: relative;
+            height: 100vh;
+            min-height: 600px;
+            display: flex;
+            align-items: center;
+            padding: 80px 40px 200px;
+            overflow: hidden;
+        }
 
-    border: 1px solid #7d2132;
+        .hero-bg {
+            position: absolute;
+            inset: 0;
+            background: 
+                radial-gradient(ellipse at 20% 20%, rgba(0, 255, 204, 0.08) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 80%, rgba(255, 51, 102, 0.06) 0%, transparent 50%),
+                linear-gradient(135deg, #0a0a0a 0%, #121212 50%, #080808 100%);
+        }
 
-    background: radial-gradient(
-        circle,
-        #17080d 0%,
-        #0d0407 60%,
-        #040103 100%
-    );
+        .floating-marketbox {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            w: 400px;
+            h: 400px;
+            transform: translate(-50%, -50%) rotateX(15deg) rotateY(5deg);
+            animation: floatUpDown 8s infinite;
+            perspective: 1000px;
+            z-index: 10;
+            filter: drop-shadow(0 20px 40px rgba(0, 0, 0, 0.5));
+        }
 
-    display: flex;
-    align-items: center;
-    justify-content: center;
+        @keyframes floatUpDown {
+            0%, 100% { transform: translate(-50%, -50%) rotateX(15deg) rotateY(5deg); }
+            33% { transform: translate(-50%, -60%) rotateX(20deg) rotateY(10deg); }
+            66% { transform: translate(-50%, -40%) rotateX(10deg) rotateY(0deg); }
+        }
 
-    text-align: center;
+        .marketbox-container {
+            display: inline-block;
+            position: relative;
+            z-index: 20;
+        }
 
-    color: #eee;
-    font-size: 13px;
-    font-weight: bold;
+        .marketbox {
+            width: 100%;
+            height: 100%;
+            border-radius: 20px;
+            background: linear-gradient(145deg, rgba(255,255,255,0.03), rgba(0,0,0,0.3));
+            box-shadow: 
+                0 30px 60px rgba(0, 0, 0, 0.5),
+                inset 0 1px 0 rgba(255,255,255,0.05),
+                0 0 30px rgba(0, 255, 204, 0.1);
+            position: relative;
+            transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
 
-    cursor: pointer;
+        .marketbox::before,
+        .marketbox::after {
+            content: '';
+            position: absolute;
+            background: var(--primary-glow);
+            border-radius: 50%;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
 
-    transition: .3s;
+        .marketbox:hover::before,
+        .marketbox:hover::after {
+            opacity: 0.6;
+        }
 
-    box-shadow:
-        0 0 13px rgba(130,25,45,.35),
-        inset 0 0 18px rgba(130,25,45,.1);
+        .marketbox-content {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            text-align: center;
+        }
 
-    z-index: 3;
-}
+        .marketbox-title {
+            font-size: 2.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #fff, #a0e0ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 10px;
+        }
 
-.node:hover {
-    transform: scale(1.08);
+        .marketbox-subtitle {
+            color: var(--text-secondary);
+            font-size: 1.2rem;
+            max-width: 500px;
+            line-height: 1.5;
+        }
 
-    border-color: #c43c54;
+        .marketbox-badge {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            background: var(--secondary-glow);
+            color: #fff;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
 
-    box-shadow:
-        0 0 20px #8d2638,
-        0 0 45px rgba(190,45,70,.35);
-}
+        .floating-particles {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+        }
 
-/* TENGAH */
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: var(--primary-glow);
+            border-radius: 50%;
+            opacity: 0;
+            animation: pulse 2s infinite;
+        }
 
-.main {
-    width: 180px;
-    height: 180px;
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 0.3; }
+            50% { transform: scale(1.5); opacity: 0.6; }
+        }
 
-    left: 160px;
-    top: 160px;
+        /* Buttons */
+        .btn-primary {
+            padding: 15px 40px;
+            background: linear-gradient(135deg, var(--primary-glow), #00cc88);
+            color: #000;
+            font-weight: 700;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
 
-    border: 2px solid #8d2638;
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 35px rgba(0, 255, 204, 0.4);
+        }
 
-    color: #d75b70;
+        .btn-secondary {
+            padding: 15px 40px;
+            background: rgba(255, 255, 255, 0.05);
+            color: white;
+            font-weight: 600;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
 
-    font-size: 19px;
-    letter-spacing: 3px;
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateY(-3px);
+        }
 
-    box-shadow:
-        0 0 20px rgba(150,30,50,.35),
-        0 0 50px rgba(120,20,40,.15),
-        inset 0 0 30px rgba(150,30,50,.12);
-}
+        /* Product Section */
+        .products-section {
+            padding: 120px 40px;
+            background: linear-gradient(180deg, rgzaa 0%, rgba(13, 13, 26, 0.9) 100%);
+        }
 
-/* PLAY */
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
 
-.play {
-    width: 55px;
-    height: 55px;
+        .section-title {
+            font-size: 2.2rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--primary-glow), #ff6600);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 20px;
+        }
 
-    border-radius: 50%;
-    border: 2px solid #864052;
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
 
-    display: flex;
-    align-items: center;
-    justify-content: center;
+        /* Product Cards */
+        .product-card {
+            background: var(--glass-background);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 24px;
+            overflow: hidden;
+            transformation: translateY(20px);
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            cursor: pointer;
+        }
 
-    color: #d75b70;
-    font-size: 20px;
+        .product-card.hidden {
+            transform: translateY(100px);
+            opacity: 0;
+            pointer-events: none;
+        }
 
-    margin: 0 auto 15px;
-}
+        .product-card:hover {
+            transform: translateY(-10px) rotateX(5deg) rotateY(-3deg);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5), 0 0 30px rgba(0, 255, 204, 0.2);
+        }
 
-/* POSISI */
+        .product-image {
+            width: 100%;
+            aspect-ratio: 16/10;
+            background: linear-gradient(135deg, rgba(255,255,255,0.02), rgba(0,0,0,0.3));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
 
-.script {
-    left: 200px;
-    top: 20px;
-}
+        .product-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s ease;
+        }
 
-.tutorial {
-    left: 0;
-    top: 180px;
-}
+        .product-card:hover .product-image img {
+            transform: scale(1.1);
+        }
 
-.tiktok {
-    right: 0;
-    top: 180px;
-}
+        .card-content {
+            padding: 25px;
+            position: relative;
+            z-index: 1;
+        }
 
-.youtube {
-    left: 200px;
-    bottom: 20px;
-}
+        .card-category {
+            display: inline-block;
+            background: var(--primary-glow);
+            color: #000;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-bottom: 15px;
+        }
 
-/* GARIS */
+        .card-name {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
 
-.line {
-    position: absolute;
-    background: #49111c;
-    z-index: 1;
-}
+        .card-description {
+            color: var(--text-secondary);
+            line-height: 1.7;
+            margin-bottom: 20px;
+        }
 
-.line-horizontal {
-    width: 100%;
-    height: 1px;
-    left: 0;
-    top: 230px;
-}
+        .card-price {
+            display: inline-block;
+            background: linear-gradient(135deg, rgba(0, 255, 204, 0.2), transparent);
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-weight: 700;
+            color: #fff;
+            font-size: 1.1rem;
+            text-align: center;
+        }
 
-.line-vertical {
-    width: 1px;
-    height: 100%;
-    left: 250px;
-    top: 0;
-}
+        .card-badge {
+            display: inline-block;
+            background: var(--secondary-glow);
+            color: #fff;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            margin-top: 15px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
 
-/* ANIMASI */
+        .card-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 20px;
+            padding-top: 15px;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
 
-@keyframes glow {
-    from {
-        box-shadow:
-            0 0 12px #641525,
-            0 0 25px rgba(160,30,50,.15);
-    }
+        .stock-status {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
 
-    to {
-        box-shadow:
-            0 0 20px #962a40,
-            0 0 45px rgba(190,40,65,.3);
-    }
-}
+        .add-to-cart {
+            width: 100%;
+            padding: 12px;
+            background: var(--primary-glow);
+            color: #000;
+            border: none;
+            border-radius: 8px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
 
-.node:active {
-    transform: scale(.94);
-}
+        .add-to-cart:hover {
+            background: #00cc88;
+            transform: scale(1.02);
+        }
 
-/* HP */
+        /* How to Order Section */
+        .how-to-section {
+            padding: 100px 40px;
+            background: linear-gradient(170deg, rgzaa 0%, rgba(22, 22, 32, 0.98) 100%);
+        }
 
-@media (max-width: 600px) {
-    .header {
-        top: 25%;
-    }
+        .step {
+            background: var(--glass-background);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 24px;
+            padding: 40px 30px;
+            margin-bottom: 30px;
+            transition: all 0.4s ease;
+        }
 
-    .menu {
-        transform: scale(.88);
-        margin-top: 400px;
-    }
-}
+        .step-number {
+            position: absolute;
+            top: 20px;
+            left: 30px;
+            background: var(--primary-glow);
+            color: #000;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            z-index: 2;
+        }
 
-@media (max-width: 380px) {
-    .menu {
-        transform: scale(.78);
-    }
+        .step-label {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            margin-top: 10px;
+        }
 
-    .header {
-        top: 23%;
-    }
-}
-</style>
+        .step-desc {
+            font-size: 1.1rem;
+            margin-top: 20px;
+            color: #b0b0c0;
+        }
+
+        /* Why Choose IKKY Market */
+        .why-section {
+            padding: 120px 40px;
+            background: linear-gradient(160deg, rgzaa 0%, rgba(15, 15, 20, 0.96) 100%);
+        }
+
+        .feature {
+            display: flex;
+            align-items: center;
+            gap: 25px;
+            padding: 35px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+        }
+
+        .feature-icon {
+            width: 48px;
+            height: 48px;
+            background: var(--primary-glow);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .feature-label {
+            font-weight: 700;
+            color: #fff;
+        }
+
+        .feature-benefit {
+            flex: 1;
+            min-width: 0;
+        }
+
+        /* Promo Section */
+        .promo-section {
+            padding: 80px 40px;
+            background: linear-gradient(45deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            text-align: center;
+        }
+
+        .promo-banner {
+            max-width: 800px;
+            margin: 0 auto;
+            border: 2px solid var(--secondary-glow);
+            border-radius: 32px;
+            padding: 60px 40px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .promo-banner::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: conic-gradient(from 0deg, transparent, rgba(255,255,255,0.1), transparent);
+            animation: spin 8s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .promo-title {
+            font-size: 1.8rem;
+            font-weight: 800;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, #fff, #00ffcc);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .promo-desc {
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+
+        .promo-buy {
+            display: inline-block;
+            background: var(--secondary-glow);
+            color: #fff;
+            padding: 15px 40px;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .promo-buy:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(255, 51, 102, 0.4);
+        }
+
+        /* Footer */
+        .footer {
+            padding: 60px 40px;
+            background: rgba(10, 10, 14, 0.97);
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .footer-inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-left: 40px;
+            padding-right: 40px;
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 20px;
+        }
+
+        .social-icon {
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .social-links a {
+            color: #fff;
+            transition: all 0.3s ease;
+        }
+
+        .social-links a:hover {
+            background: var(--primary-glow);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 255, 204, 0.3);
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .copyright span {
+            color: var(--text-secondary);
+            font-weight: 600;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .nav-toggler {
+                display: flex !important;
+            }
+
+            .nav-links li {
+                display: none;
+            }
+
+            .hero {
+                padding: 100px 20px 150px;
+            }
+
+            .marketbox {
+                width: 90%;
+                height: 70%;
+            }
+
+            .product-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .section-header {
+                margin-bottom: 40px;
+            }
+
+            .step {
+                padding: 25px 20px;
+            }
+
+            .promo-banner {
+                padding: 40px 20px;
+            }
+        }
+    </style>
 </head>
-
 <body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-brand">IKKY MARKET</div>
+        
+        <button class="nav-toggler active" id="navToggle" aria-label="Toggle navigation">
+            <span class="toggle-btn"></span>
+        </button>
 
-<div class="container">
+        <ul class="nav-links">
+            <li><a class="active" data-page="home" onclick="switchPage('home')">Home</a></li>
+            <li><a data-page="products" onclick="switchPage('products')">Products</a></li>
+            <li><a data-page="about" onclick="switchPage('about')">About</a></li>
+            <li><a data-page="contact" onclick="switchPage('contact')">Contact</a></li>
+        </ul>
 
-    <div class="header">
-
-        <div class="logo">
-            KW
+        <div class="nav-tabs">
+            <button class="active" data-tab="home">Home</button>
+            <button data-tab="products">Products</button>
+            <button data-tab="about">About</button>
+            <button data-tab="contact">Contact</button>
         </div>
+    </nav>
 
-        <div class="title">
-            HAISEEE-
-        </div>
-
-        <div class="subtitle">
-            LOCAL VERSION
-        </div>
-
-    </div>
-
-    <div class="menu">
-
-        <div class="line line-horizontal"></div>
-        <div class="line line-vertical"></div>
-
-        <div class="node script"
-             onclick="openPage('script.html')">
-            SCRIPT V2.4
-        </div>
-
-        <div class="node tutorial"
-             onclick="openPage('tutorial.html')">
-            TUTORIAL
-        </div>
-
-        <div class="node main"
-             onclick="mainButton()">
-
-            <div>
-
-                <div class="play">
-                    ▶
+    <!-- Hero Section -->
+    <header class="hero">
+        <div class="hero-bg"></div>
+        
+        <div class="floating-marketbox">
+            <div class="marketbox-container">
+                <div class="marketbox">
+                    <div class="marketbox-content">
+                        <h1 class="marketbox-title">WELCOME TO IKKY MARKET</h1>
+                        <p class="marketbox-subtitle">Premium Digital Products. Instant Access. Better Experience.</p>
+                        <button class="btn-primary" onclick="openModal()">EXPLORE PRODUCTS</button>
+                        <button class="btn-secondary" onclick="showPromo()">CONTACT US</button>
+                    </div>
+                    <div class="marketbox-badge">DIGITAL STORE</div>
+                    <div class="floating-particle" style="top: 20%; left: 15%; animation-delay: 0s;">●</div>
+                    <div class="floating-particle" style="top: 60%; left: 30%; animation-delay: 1s;">●</div>
+                    <div class="floating-particle" style="top: 80%; left: 55%; animation-delay: 2s;">●</div>
+                    <div class="floating-particle" style="top: 30%; left: 70%; animation-delay: 3s;">●</div>
                 </div>
+            </div>
+        </div>
+    </header>
 
-                <div>
-                    ULAR KADUT
-                </div>
-
+    <!-- Social Links Section -->
+    <section class="products-section">
+        <div class="container mx-auto">
+            <div class="section-header">
+                <h2 class="section-title">CONNECT WITH IKKY MARKET</h2>
             </div>
 
+            <div class="product-grid" id="socialCards">
+                <!-- Cards will be rendered by JavaScript -->
+            </div>
         </div>
+    </section>
 
-        <div class="node tiktok"
-             onclick="openExternal('https://www.tiktok.com/')">
-            TIK TOK
-        </div>
+    <!-- Products Section -->
+    <section class="products-section">
+        <div class="container mx-auto">
+            <div class="section-header">
+                <h2 class="section-title">PREMIUM DIGITAL PRODUCTS</h2>
+            </div>
 
-        <div class="node youtube"
-             onclick="openExternal('https://www.youtube.com/')">
-            YOUTUBE
-        </div>
+            <div class="product-grid">
+                <!-- Product 1 -->
+                <article class="product-card" data-product="am-premium">
+                    <div class="product-image">
+                        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'%3E%3Crect fill='%23252a0d' width='400' height='250' rx='30'/%3E%3Ctext x='200' y='140' text-anchor='middle' fill='rgba(255,255,255,0.6)' font-family='sans-serif' font-size='24' font-weight='bold'%3EA&P+M+R+E@#%23FFCC>>%3C%3E%3F%3E%3C%2Fsvg%3E%3F" alt="Am Premium">
+                    </div>
+                    <div class="card-content">
+                        <span class="category">Premium Apps</span>
+                        <h3 class="card-name">AM PREMIUM</h3>
+                        <p class="card-description">Premium access dengan fitur tambahan untuk pengalaman penggunaan yang lebih lengkap. Ideal untuk produkktivitas maksimal.</p>
+                        <div class="card-price">Rp 149.000</div>
+                        <span class="badge">BEST SELLER</span>
+                        <button class="add-to-cart" onclick="openProductModal('%23am-premium')">BUY NOW</button>
+                    </div>
+                </article>
 
-    </div>
+                <!-- Product 2 -->
+                <article class="product-card" data-product="canva-premium">
+                    <div class="product-image">
+                        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'%3E%3Crect fill='%234a2c8d' width='400' height='220' rx='25'/%3E%3Ctext x='200' y='130' text-anchor='middle' fill='rgba(255,255,255,0.5)' font-family='sans-serif' font-size='22' font-weight='bold'%3CA&amp;C&amp;v+Premium%3C%2Fsvg%3E%3F" alt="Canva Premium">
+                    </div>
+                    <div class="card-content">
+                        <span class="category">Digital Tools</span>
+                        <h3 class="card-name">CANVA PREMIUM</h3>
+                        <p class="card-description">Akses fitur premium Canva untuk kebutuhan desain dan editing. Perlu versi terkini untuk proyek profesional.</p>
+                        <div class="card-price">Rp 89.000</div>
+                        <span class="badge">POPULAR</span>
+                        <button class="add-to-cart" onclick="openProductModal('%23canva-premium')">BUY NOW</button>
+                    </div>
+                </article>
 
-</div>
+                <!-- Product 3 -->
+                <article class="product-card" data-product="netflix-premium">
+                    <div class="product-image">
+                        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'%3E%3Crect fill='%231a1a2e' width='400' height='220' rx='20'/%3E%3Ctext x='200' y='140' text-anchor='middle' fill='rgba(255,255,255,0.4)' font-family='sans-serif' font-size='22' font-weight='bold'%3ANETF-LINK%3C%2Fsvg%3E%3F" alt="Netflix Premium">
+                    </div>
+                    <div class="card-content">
+                        <span class="category">Entertainment</span>
+                        <h3 class="card-name">NETFLIX PREMIUM</h3>
+                        <p class="card-description">Paket entertainment premium dengan akses sesuai pilihan paket yang tersedia. Nonton film dan series terbaru.</p>
+                        <div class="card-price">Rp 29.990</div>
+                        <span class="badge">HOT</span>
+                        <button class="add-to-cart" onclick="openProductModal('%23netflix-premium')">BUY NOW</button>
+                    </div>
+                </article>
 
-<script>
+                <!-- Product 4 -->
+                <article class="product-card" data-product="editing-premium">
+                    <div class="product-image">
+                        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'%3E%3Crect fill='%23527a8b' width='400' height='240' rx='30'/%3E%3Ctext x='200' y='130' text-anchor='middle' fill='rgba(255,255,255,0.5)' font-family='sans-serif' font-size='22' font-weight='bold'%3ADEEDIT-PREM%3C%2Fsvg%3E%3F" alt="Editing Premium Pack">
+                    </div>
+                    <div class="card-content">
+                        <span class="category">Editing</span>
+                        <h3 class="card-name">EDITING PREMIUM PACK</h3>
+                        <p class="card-description">Kumpulan tools dan resources digital untuk kebutuhan editing video dan foto. Senjata lengkap untuk producer digital.</p>
+                        <div class="card-price">Rp 54.000</div>
+                        <span class="badge">NEW</span>
+                        <button class="add-to-cart" onclick="openProductModal('%23editing-premium')">BUY NOW</button>
+                    </div>
+                </article>
 
-function openPage(page) {
-    window.location.href = page;
-}
-
-function openExternal(url) {
-    window.open(url, "_blank");
-}
-
-function mainButton() {
-    alert("ULAR KADUT");
-}
-
-</script>
-
-</body>
-                  </html>
+                <!-- Product 5 -->
+                <article class="product-card" data-product="digital-tool-pack">
+                    <div class="product-image">
+                        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'%3E%3Crect fill='%230a1a2e' width='400' height='200' rx='25'/%3E%3Ctext x='200' y='140' text-anchor='middle' fill='rgba(255,255,255,0.6)' font-family='sans-serif' font-size='22' font-weight='bold'%3ADIGITAL-TOOL-PACK%3C%2Fsvg%3E%3F" alt="Digital Tool Pack">
+                    </div>
+                    <div class="card-content">
+                        <span class="category">Productivity</span>
+                        <h3 class="
